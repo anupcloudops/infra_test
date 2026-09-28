@@ -1,15 +1,16 @@
 name: infra_test
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: select env
-        required: true
-        default: dev
-        type: choice
-        options:
-          - dev
-          - prod
+  push:
+  # workflow_dispatch:
+    # inputs:
+    #   environment:
+    #     description: select env
+    #     required: true
+    #     default: dev
+    #     type: choice
+    #     options:
+    #       - dev
+    #       - prod
 jobs:
   infra_terraform:
     runs-on: self-hosted
