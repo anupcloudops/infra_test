@@ -23,6 +23,13 @@ jobs:
 
       - name: version terraform
         run: terraform version
+
+      - name: TFVARS terraform
+        working-directory: env/dev
+        env:
+          TFVARS_CONTENT: ${{ secrets.TF_VARS_FILE }}
+        run: |
+          echo "$TFVARS_CONTENT" > terraform.tfvars
       
       - name: terraform init
         working-directory: env/dev
