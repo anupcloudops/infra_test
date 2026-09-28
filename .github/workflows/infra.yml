@@ -18,6 +18,8 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       - name: version terraform
         run: terraform version
+      - name: checkout code
+        run: actions/checkout@v4 
       - name: terraform init
         run: terraform init
       - name: terraform plan
