@@ -1,0 +1,26 @@
+name: infra_test
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: select env
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - prod
+jobs:
+  infra_terraform:
+    runs-on: self-hosted
+    steps:
+      - name: install terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: version terraform
+        run: terraform version
+      - name: terraform init
+        run: terraform init
+      - name: terraform plan
+        run: terraform plan
+  
+      
