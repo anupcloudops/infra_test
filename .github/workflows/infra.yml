@@ -20,6 +20,8 @@ jobs:
 
       - name: install terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
 
       - name: version terraform
         run: terraform version
