@@ -14,6 +14,11 @@ jobs:
   infra_terraform:
     runs-on: self-hosted
     steps:
+      - name: Check Terraform files
+        run: |
+          pwd
+          ls -la
+          find . -name "*.tf" -type f
       - name: checkout code
         uses: actions/checkout@v4 
 
@@ -25,8 +30,8 @@ jobs:
       
       - name: terraform init
         run: terraform init
-        
+
       - name: terraform plan
         run: terraform plan
-  
+      
       
