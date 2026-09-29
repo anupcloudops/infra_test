@@ -1,44 +1,29 @@
-name: infra_test
+name: infra_pipeline
 on:
-  push:
-  # workflow_dispatch:
-    # inputs:
-    #   environment:
-    #     description: select env
-    #     required: true
-    #     default: dev
-    #     type: choice
-    #     options:
-    #       - dev
-    #       - prod
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: select env
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
 jobs:
-  infra_terraform:
+  hello:
     runs-on: self-hosted
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4 
-
-      - name: install terraform
+      - name: checkout
+        uses: actions/checkout@v4
+      - name : install terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
+          terraform_version: latest
 
-      - name: version terraform
-        run: terraform version
-
-      - name: TFVARS terraform
+      - name: create tfvars
         working-directory: env/dev
         env:
-          TFVARS_CONTENT: ${{ secrets.TF_VARS }}
+          tfvars-content: ${{ secrets.TF_VARS }}
         run: |
-          echo "$TFVARS_CONTENT" > terraform.tfvars
-      
-      - name: terraform init
-        working-directory: env/dev
-        run: terraform init
-
-      - name: terraform plan
-        working-directory: env/dev
-        run: terraform plan -var-file="terraform.tfvars"
-      
-      
+          echo "tfvars-content" >> terraform.tfvars
